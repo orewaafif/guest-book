@@ -1,0 +1,37 @@
+<div class="d-flex flex-column justify-content-start align-items-center"
+    style="height: 100%; width: 100%; overflow: hidden">
+    <div class="d-flex justify-content-end mb-2" style="width: 100%">
+        <div class="btn btn-secondary" (click)="back()">Back to messages</div>
+    </div>
+    <div class="d-flex flex-column justify-content-start align-items-center p-2" style="height: 100%; width: 100%; border-radius: 4px; border: 1px solid gray;">
+        <ng-container *ngIf="msgForm">
+            <form [formGroup]="msgForm" (submit)="onSubmit()" style="width: 100%;">
+                <span>Message:</span>
+                <textarea placeholder="Eg. Dear Afif and Aiba..." rows="6" class="form-control" formControlName="message" type="text"
+                    (keydown.enter)="$event.stopPropagation();"
+                    [ngClass]="{
+                        'is-valid': msgControl.valid,
+                        'is-invalid': msgControl.invalid 
+                    }"
+                    (keydown.control.enter)="$event.stopPropagation(); onSubmit()"></textarea>
+                <div *ngIf="msgControl.valid" class="valid-msg">Thank you for your kind words!</div>
+                <div *ngIf="msgControl.invalid" class="invalid-msg">{{msgControl.errors.required ? 'Message is required' : msgControl.errors.charLimit ? 'Thank you! How about a bit shorter?' : null}}</div>
+                <span>From:</span>
+                <input placeholder="Enter your name here" class="form-control"
+                [ngClass]="{
+                    'is-valid': senderControl.valid,
+                    'is-invalid': senderControl.invalid
+                }"
+                formControlName="sender" type="text">
+                <div *ngIf="senderControl.valid" [ngClass]="{'valid-msg': senderControl.valid}">Hi there, {{senderControl.value}}!</div>
+                <div *ngIf="senderControl.invalid" [ngClass]="{'invalid-msg': senderControl.invalid}">{{senderControl.errors.required ? 'Name is required' : senderControl.errors.charLimit ? 'Oops. How about a short nickname?' : null}}</div>
+                <div class="d-flex justify-content-end" style="width: 100%">
+                    <button class="btn btn-primary mb-2 mt-2" type="submit" [disabled]="msgForm.invalid">Submit</button>
+                    <button *ngIf="isEdit" class="btn btn-warning mb-2 mt-2 ml-2" type="button" (click)="deleteMessage()">Delete</button>
+                </div>
+            </form>
+        </ng-container>
+        <span style="color: lightgrey">PREVIEW</span>
+        <app-msg-template [msg]="msgForm?.value"></app-msg-template>
+    </div>
+</div>

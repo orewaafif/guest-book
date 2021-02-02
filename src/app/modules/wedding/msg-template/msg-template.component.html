@@ -1,0 +1,17 @@
+<style>
+    @font-face {
+        font-family: angelina;
+        src: url('assets/fonts/angelina/angelina.ttf') format("opentype");
+    }
+
+    :host {
+        font-family: angelina;
+        font-size: 1.7em;
+        width: 100%;
+    }
+</style>
+<div class="p-2 mt-2 mb-4" style="display: flex; flex-flow: column; width: 100%; align-items: center;">
+    <span style="line-height: 1.1em;white-space: pre-wrap; align-self: flex-start">&#9;{{msg?.message || default.message }}</span>
+    <span style="align-self: flex-end;">{{'- '}}{{msg?.sender || default.sender }}</span>
+    <div style="align-self: flex-end; border-bottom: 1px solid grey; width: 50%; margin-top: 0.25em;"></div>
+</div>

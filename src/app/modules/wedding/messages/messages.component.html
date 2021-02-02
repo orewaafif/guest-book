@@ -1,0 +1,16 @@
+<div class="d-flex flex-column justify-content-start align-items-center"
+    style="height: 100%; width: 100%; overflow: auto">
+    <div class="d-flex justify-content-end mb-2" style="width: 100%">
+        <div class="btn" [ngClass]="{'btn-success': !_hasWrote, 'btn-primary': _hasWrote}" (click)="editCreateMessage()">
+            {{ _hasWrote ? 'Edit' : 'Write' }} Message</div>
+    </div>
+    <div style="flex: 1; width: 100%; overflow: auto; border: 1px solid grey; border-radius: 4px;" class="p-2" #msgsEle>
+        <ng-container *ngIf="!messages?.length">
+            <div class="d-flex justify-content-center" style="padding-top: 2em">Oh my! You could be the first one to leave a message here!</div>
+        </ng-container>
+        <ng-container *ngFor="let msg of messages">
+            <app-msg-template #msgEle [msg]="msg">
+            </app-msg-template>
+        </ng-container>
+    </div>
+</div>
