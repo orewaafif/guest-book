@@ -7,7 +7,7 @@
         <ng-container *ngIf="msgForm">
             <form [formGroup]="msgForm" (submit)="onSubmit()" style="width: 100%;">
                 <span>Message:</span>
-                <textarea placeholder="Eg. Dear Afif and Aiba..." rows="6" class="form-control" formControlName="message" type="text"
+                <textarea placeholder="Eg. Dear Bride and Groom..." rows="6" class="form-control" formControlName="message" type="text"
                     (keydown.enter)="$event.stopPropagation();"
                     [ngClass]="{
                         'is-valid': msgControl.valid,

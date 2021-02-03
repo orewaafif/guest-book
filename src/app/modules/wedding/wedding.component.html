@@ -32,13 +32,13 @@
             <div class="d-flex flex-column" style="flex: 1; height: 100%;">
                 <div class="d-flex flex-column justify-content-center align-items-center"
                     style="position: relative; flex: 1; margin-left: -1em; margin-right: -1em; height: 24em;">
-                    <span class="angelina" style="margin-bottom: 2em;" (click)="scrollTo('msg')">{{ui.header || 'Solemnization of'}}</span>
-                    <span class="hello-honey">{{ui.name1 || 'Afif Ashroff'}}</span>
+                    <span class="angelina" style="margin-bottom: 2em;" (click)="scrollTo('msg')">{{ui?.header || 'Solemnization of'}}</span>
+                    <span class="hello-honey">{{ui?.name1 || 'Afif Ashroff'}}</span>
                     <span class="hello-honey">&</span>
-                    <span class="hello-honey">{{ui.name2 || 'La Ai Ba Ratna'}}</span>
-                    <span class="angelina" style="margin-top: 2em;">{{ui.dateM || '27th January 2021'}}</span>
-                    <span *ngIf="ui.dateH" class="angelina">{{ui.dateH || '14 Jamadil Akhir 1442H'}}</span>
-                    <span class="angelina">{{ui.time || '2:00PM'}}</span>
+                    <span class="hello-honey">{{ui?.name2 || 'La Ai Ba Ratna'}}</span>
+                    <span class="angelina" style="margin-top: 2em;">{{ui?.dateM || '27th January 2021'}}</span>
+                    <span class="angelina">{{ui?.dateH || '14 Jamadil Akhir 1442H'}}</span>
+                    <span class="angelina">{{ui?.time || '2:00PM'}}</span>
                     <img src="assets/wedding/blotch.png" style="width: 80%; position: absolute; z-index: -1;">
                     <img class="rotate-tr-up" src="assets/wedding/leaves-right.png"
                         style="width: 50%; position: absolute; z-index: -1; right: 0; top: 30px;">
@@ -58,6 +58,7 @@
             class="col-sm-12 col-md-6 full-height d-flex flex-column justify-content-center align-items-center">
             <div class="hello-honey">~ Guest Book ~</div>
             <router-outlet></router-outlet>
+            <div style="font-size: 80%;" class="mt-2">© afifashroff.com</div>
         </div>
     </div>
 </div>

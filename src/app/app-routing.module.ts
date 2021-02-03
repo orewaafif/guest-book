@@ -8,8 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'aiman-sukainah'
+    loadChildren: () => import('src/app/modules/wedding/wedding.module').then(m => m.WeddingModule)
   }
 ];
 

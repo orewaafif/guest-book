@@ -29,21 +29,7 @@ export class WeddingComponent implements OnInit, AfterViewInit {
 
   isMain: boolean = true
 
-  ui: {
-    name1: string
-    name2: string
-    dateM: string
-    dateH?: string
-    time: string
-    header: string
-  } = {
-    header: 'Solemnization of',
-    name1: 'Aiman Al-Hindwan',
-    name2: 'Sukainah Al-Munawar',
-    dateM: '5 February 2021',
-    dateH: '23 Jumadil Akhir 1442H',
-    time: '2:30PM'
-  }
+  ui: IGuestBookCover
 
   code: string = null
 
@@ -92,8 +78,13 @@ export class WeddingComponent implements OnInit, AfterViewInit {
       const { code } = params
       this.wedUIServ.code = code
 
-      if (this.wedUIServ.code !== 'aiman-sukainah') {
+      if (!this.wedUIServ.code) {
+      }
+      else if (this.wedUIServ.code !== 'aiman-sukainah') {
         this.router.navigate(['./aiman-sukainah'])
+      }
+      else {
+        this.ui = AimanSukainah
       }
     })
   }
@@ -131,4 +122,21 @@ export class WeddingComponent implements OnInit, AfterViewInit {
       // this.mainEle.nativeElement.scrollIntoView(opt)
     }
   }
+}
+
+interface IGuestBookCover {
+  header: string
+  name1: string
+  name2: string
+  dateM: string
+  dateH: string
+  time: string
+}
+const AimanSukainah: IGuestBookCover = {
+  header: 'Solemnization of',
+  name1: 'Aiman Al-Hindwan',
+  name2: 'Sukainah Al-Munawar',
+  dateM: '5 February 2021',
+  dateH: '23 Jumadil Akhir 1442H',
+  time: '2:30PM'
 }
