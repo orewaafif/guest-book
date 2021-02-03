@@ -40,8 +40,9 @@ export class WeddingComponent implements OnInit, AfterViewInit {
     header: 'Solemnization of',
     name1: 'Aiman Al-Hindwan',
     name2: 'Sukainah Al-Munawar',
-    dateM: '5th February 2021',
-    time: '9:00AM'
+    dateM: '5 February 2021',
+    dateH: '23 Jumadil Akhir 1442H',
+    time: '2:30PM'
   }
 
   code: string = null
