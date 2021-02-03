@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { WeddingUIService } from '../wedding-ui.service';
 import { IMessage, WeddingService } from '../wedding.service';
 
 @Component({
@@ -31,14 +32,19 @@ export class EditMessageComponent implements OnInit, OnDestroy {
     return this.msgForm.get('sender')
   }
 
+  get code(): string {
+    return this.wedUIServ.code
+  }
+
   constructor(
-    private location: Location,
     private route: ActivatedRoute,
     private router: Router,
-    private wedService: WeddingService
+    private wedService: WeddingService,
+    private wedUIServ: WeddingUIService,
   ) { }
 
   ngOnInit(): void {
+    console.log('edit.msg.code: ', this.wedUIServ.code)
     this.route.params.pipe(takeUntil(this.unsub$.asObservable())).subscribe(async (params) => {
 
       const { mode } = params
@@ -47,7 +53,7 @@ export class EditMessageComponent implements OnInit, OnDestroy {
       this.mode = mode
 
       try {
-        msg = await this.wedService.getMessage().toPromise()
+        msg = await this.wedService.getMessage(this.code ? `?code=${this.code}` : null).toPromise()
       }
       catch (err) {
         console.error('No message is present yet. Navigating back to create...')
@@ -101,12 +107,14 @@ export class EditMessageComponent implements OnInit, OnDestroy {
       message: this.msgForm.get('message').value,
     }
 
+    if (this.code) payload.code = this.code
+
     try {
       if (!this.isEdit) {
-        const createdMsg = await this.wedService.createMessage(payload).toPromise()
+        const createdMsg = await this.wedService.createMessage(payload, payload.code ? `?code=${payload.code}` : '').toPromise()
       }
       else {
-        const editedMsg = await this.wedService.updateMessage(payload).toPromise()
+        const editedMsg = await this.wedService.updateMessage(payload, payload.code ? `?code=${payload.code}` : '').toPromise()
       }
 
       this.back()
@@ -118,7 +126,7 @@ export class EditMessageComponent implements OnInit, OnDestroy {
 
   async deleteMessage() {
     try {
-      const deleted = await this.wedService.deleteMessage().toPromise()
+      const deleted = await this.wedService.deleteMessage(this.code ? `?code=${this.code}` : null).toPromise()
 
       this.back()
     }

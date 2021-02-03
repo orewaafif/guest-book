@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { interval, Subject } from 'rxjs';
 import { debounce, takeUntil } from 'rxjs/operators';
 import { eleIsIn } from 'src/app/common/utils';
+import { WeddingUIService } from '../wedding-ui.service';
 import { IMessage, WeddingService } from '../wedding.service';
 
 @Component({
@@ -34,18 +35,30 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewInit {
     return !!this.ownMsg
   }
 
+  get code(): string {
+    return this.wedUIServ.code
+  }
+
   constructor(
     private wedService: WeddingService,
+    private wedUIServ: WeddingUIService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
   async ngOnInit() {
+    // console.log('code: ', this.wedUIServ.code)
+
+    const refreshMsgs = async () => {
+      this.messages = await this.wedService.allMessages(this.code ? `?code=${this.code}` : null).toPromise()
+    }
+
     this.checkMsgInterval = setInterval( async () => {
-      this.messages = await this.wedService.allMessages().toPromise()
+      await refreshMsgs()
     }, 30 * 1000)
-    this.messages = await this.wedService.allMessages().toPromise()
-    this.ownMsg = await this.wedService.getMessage().toPromise()
+    await refreshMsgs()
+
+    this.ownMsg = await this.wedService.getMessage(this.code ? `?code=${this.code}` : null).toPromise()
 
     this.onListScroll$.pipe(
       takeUntil(this.unsub$.asObservable()),

@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CredentialsInterceptor } from 'src/app/helpers/credentials.interceptor';
 import { AssetLoaderService } from 'src/app/common/asset-loader/asset-loader.service';
 import { MsgTemplateComponent } from './msg-template/msg-template.component';
+import { WeddingUIService } from './wedding-ui.service';
 
 const routes: Routes = [
   {
@@ -51,6 +52,7 @@ export class WeddingRoutingModule { }
   ],
   providers: [
     WeddingService,
+    WeddingUIService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CredentialsInterceptor,
