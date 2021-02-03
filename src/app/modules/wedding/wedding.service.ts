@@ -17,7 +17,7 @@ export class WeddingService {
   ) { }
 
   allMessages(queryParams?: string): Observable<IMessage[]> {
-    return this.http.get<IMessage[]>(this.msgUrl + queryParams || '')
+    return this.http.get<IMessage[]>(this.msgUrl + (queryParams || ''))
   }
 
   createMessage(payload: IMessage, queryParams?: string): Observable<IMessage> {
