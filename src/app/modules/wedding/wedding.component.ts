@@ -91,9 +91,8 @@ export class WeddingComponent implements OnInit, AfterViewInit {
       const { code } = params
       this.wedUIServ.code = code
 
-      // letak Aiman Al-Hindwan & Sukainah Al-Munawar
       if (this.wedUIServ.code !== 'aiman-sukainah') {
-        // this.router.navigate(['./aiman-sukainah'])
+        this.router.navigate(['./aiman-sukainah'])
       }
     })
   }
