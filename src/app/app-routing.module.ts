@@ -5,6 +5,11 @@ const routes: Routes = [
   {
     path: ':code',
     loadChildren: () => import('src/app/modules/wedding/wedding.module').then(m => m.WeddingModule)
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'aiman-sukainah'
   }
 ];
 
