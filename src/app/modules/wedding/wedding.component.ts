@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { interval, Subject } from 'rxjs';
 import { debounce, takeUntil } from 'rxjs/operators';
 import { eleIsIn, IEleIsIn } from 'src/app/common/utils';
+import { WeddingUIService } from './wedding-ui.service';
 
 @Component({
   selector: 'app-wedding',
@@ -31,17 +32,27 @@ export class WeddingComponent implements OnInit, AfterViewInit {
   ui: {
     name1: string
     name2: string
-    date1: string
-    date2?: string
+    dateM: string
+    dateH?: string
     time: string
     header: string
+  } = {
+    header: 'Solemnization of',
+    name1: 'Aiman Al-Hindwan',
+    name2: 'Sukainah Al-Munawar',
+    dateM: '5th February 2021',
+    time: '9:00AM'
   }
+
+  code: string = null
 
   unsub$ = new Subject<any>()
 
   constructor(
     private renderer: Renderer2,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private wedUIServ: WeddingUIService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -77,9 +88,13 @@ export class WeddingComponent implements OnInit, AfterViewInit {
     })
 
     this.route.params.pipe(takeUntil(this.unsub$.asObservable())).subscribe(params => {
-      console.log('params: ', params)
+      const { code } = params
+      this.wedUIServ.code = code
 
-
+      // letak Aiman Al-Hindwan & Sukainah Al-Munawar
+      if (this.wedUIServ.code !== 'aiman-sukainah') {
+        // this.router.navigate(['./aiman-sukainah'])
+      }
     })
   }
 

@@ -16,24 +16,24 @@ export class WeddingService {
     private http: HttpClient
   ) { }
 
-  allMessages(): Observable<IMessage[]> {
-    return this.http.get<IMessage[]>(this.msgUrl)
+  allMessages(queryParams?: string): Observable<IMessage[]> {
+    return this.http.get<IMessage[]>(this.msgUrl + queryParams || '')
   }
 
-  createMessage(payload: IMessage): Observable<IMessage> {
-    return this.http.post<IMessage>(this.msgUrl, payload)
+  createMessage(payload: IMessage, queryParams?: string): Observable<IMessage> {
+    return this.http.post<IMessage>(this.msgUrl + (queryParams || ''), payload)
   }
 
-  updateMessage(payload: IMessage) {
-    return this.http.put<IMessage>(this.msgUrl + '/mine', payload)
+  updateMessage(payload: IMessage, queryParams?: string) {
+    return this.http.put<IMessage>(this.msgUrl + '/mine' + (queryParams || ''), payload)
   }
 
-  deleteMessage() {
-    return this.http.delete<IMessage>(this.msgUrl + '/mine')
+  deleteMessage(queryParams?: string) {
+    return this.http.delete<IMessage>(this.msgUrl + '/mine' + (queryParams || ''))
   }
 
-  getMessage() {
-    return this.http.get<IMessage>(this.msgUrl + '/mine')
+  getMessage(queryParams?: string) {
+    return this.http.get<IMessage>(this.msgUrl + '/mine' + (queryParams || ''))
   }
 
 }
@@ -42,4 +42,5 @@ export interface IMessage {
   _id?: string
   sender?: string
   message?: string
+  code?: string
 }
